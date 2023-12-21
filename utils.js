@@ -13,3 +13,14 @@ function buyUpgrade(x) {
         player.upgrades[x].bought = true
     }
 }
+
+function upgText(x) {
+    let data = player.upgrades[x]
+    let text = "<b>" + data.title + "</b><br>" + data.description
+    if (hasUpgrade(x)) {
+        text = text + "<br>Bought!"
+    }
+    else {
+        text = text + "<br>Cost: " + data.cost + data.resShow
+    }
+}
