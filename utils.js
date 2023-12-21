@@ -14,7 +14,7 @@ function buyUpgrade(x) {
     }
 }
 
-function upgText(x) {
+function upgDisplay(x) {
     let data = player.upgrades[x]
     let text = "<b>" + data.title + "</b><br>" + data.description
     if (hasUpgrade(x)) {
@@ -23,4 +23,5 @@ function upgText(x) {
     else {
         text = text + "<br>Cost: " + data.cost + data.resShow
     }
+    let button = "<button>" + text + "</button>"
 }
