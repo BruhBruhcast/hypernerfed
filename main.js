@@ -5,16 +5,14 @@ function Dec(x) {
 var player = {
     points: Dec(0),
     basePoints: Dec(0),
-    basePointGain: Dec(1),
+    basePointGain() {
+        let x = Dec(1)
+        return x
+    },
     gainSlog: Dec(10),
     postSlogPoints: Dec(0),
     gainLog: Dec(10),
     postLogPoints: Dec(0),
-    buyables: {
-        autoclick: Dec(0),
-        multi: Dec(0),
-
-    }
 }
 
 function gainPoints() {
