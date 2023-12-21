@@ -1,39 +1,44 @@
-function Dec(x) {
-    return (new Decimal(x))
-}
-
 var player = {
     points: Dec(0),
     basePoints: Dec(0),
-    basePointGain() {
-        let x = Dec(1)
-        return x
-    },
     gainSlog: Dec(10),
-    postSlogPoints: Dec(0),
     gainLog: Dec(10),
-    postLogPoints: Dec(0),
+    upgrades: {
+        11: {
+            title: "Start",
+            description: "Gain 100% of base point gain every second",
+            cost: Dec(0.1),
+            resource: player.basePoints,
+            shown() {
+                return true
+            },
+            bought: false,
+        },
+    },
 }
 
+function basePointGain() {
+    let x = Dec(1)
+    return x
+},
+
 function gainPoints() {
-    player.basePoints = player.basePoints.add(player.basePointGain)    
-    player.postSlogPoints = player.basePoints.slog(player.gainSlog)
-    player.postLogPoints = player.postSlogPoints.log(player.gainLog)
-    player.points = player.postLogPoints.max(0)
-    if (player.basePoints.eq(1)) {
-        player.points = Dec(0)
-    }
+    player.basePoints = player.basePoints.add(basePointGain())    
 }
 
 function getPointGen() {
-    let gain = player.basePointGain
-    gain = gain.mul(player.buyables.autoclick)
+    if (!hasUpgrade(11)) {return Dec(0)}
+    let gain = basePointGain()
     gain = gain.mul(33/1000)
     return gain
 }
 
 var updateNumbers = window.setInterval(function() {
     player.basePoints = player.basePoints.add(getPointGen())
+    player.points = player.basePoints.slog(player.gainSlog).log(player.gainLog).max(0)
+    if (player.basePoints.lte(1)) {
+        player.points = Dec(0)
+    }
 }, 33)
 
 var updateText = window.setInterval(function() {
