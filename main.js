@@ -8,7 +8,8 @@ var player = {
             title: "Start",
             description: "Gain 100% of base point gain every second",
             cost: Dec(0.1),
-            resource: player.basePoints,
+            resource: player.points,
+            resShow: " points",
             shown() {
                 return true
             },
