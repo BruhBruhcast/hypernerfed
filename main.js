@@ -14,6 +14,7 @@ var player = {
             },
             bought: false,
         },
+        
     },
 }
 
