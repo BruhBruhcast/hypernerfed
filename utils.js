@@ -15,13 +15,13 @@ function buyUpgrade(x) {
 }
 
 function upgDisplay(x) {
-    let data = player.upgrades[x]
-    let text = "<b>" + data.title + "</b><br>" + data.description
+    let text = "<b>" + player.upgrades[x].title + "</b><br>" + player.upgrades[x].description
     if (hasUpgrade(x)) {
         text = text + "<br>Bought!"
     }
     else {
-        text = text + "<br>Cost: " + data.cost + data.resShow
+        text = text + "<br>Cost: " + player.upgrades[x].cost + " points<br>(Requires " + player.upgrades[x].cost.pow(player.gainLog).tetrate(player.gainSlog) + " base points)"
     }
     let button = "<button>" + text + "</button>"
+    return button
 }
