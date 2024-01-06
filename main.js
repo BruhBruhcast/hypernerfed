@@ -5,11 +5,9 @@ var player = {
     gainLog: Dec(10),
     upgrades: {
         11: {
-            title: "Start",
-            description: "Gain 100% of base point gain every second",
+            title: "Doubler",
+            description: "Multiply point gain by 2",
             cost: Dec(0.1),
-            resource: player.points,
-            resShow: " points",
             shown() {
                 return true
             },
@@ -19,18 +17,9 @@ var player = {
     },
 }
 
-function basePointGain() {
-    let x = Dec(1)
-    return x
-},
-
-function gainPoints() {
-    player.basePoints = player.basePoints.add(basePointGain())    
-}
-
 function getPointGen() {
-    if (!hasUpgrade(11)) {return Dec(0)}
-    let gain = basePointGain()
+    let gain = Dec(1)
+    if (hasUpgrade(11)) {gain = gain.mul(2)}
     gain = gain.mul(33/1000)
     return gain
 }
