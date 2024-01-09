@@ -34,5 +34,6 @@ var updateNumbers = window.setInterval(function() {
 
 var updateText = window.setInterval(function() {
     document.getElementById("ptamt").innerHTML = player.basePoints + " base points, which become " + player.points + " points"
+        document.getElementById("mainUpgs").innerHTML = player.basePoints + " base points, which become " + player.points + " points"
 }, 33)
 
