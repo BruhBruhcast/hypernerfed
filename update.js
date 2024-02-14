@@ -1,5 +1,5 @@
 var updateNumbers = window.setInterval(function() {
-    player.basePoints = player.basePoints.add(getPointGen())
+    player.basePoints = player.basePoints.add(getPointGen().mul(33/1000))
     player.points = player.basePoints.slog(player.gainSlog).log(player.gainLog).max(0)
     if (player.basePoints.lte(1)) {
         player.points = Dec(0)
@@ -7,5 +7,6 @@ var updateNumbers = window.setInterval(function() {
 }, 33)
 
 var updateText = window.setInterval(function() {
-    document.getElementById("ptamt").innerHTML = player.basePoints + " base points, which become " + player.points + " points"
+    document.getElementById("ptamt").innerHTML = player.basePoints + " base points (" + getPointGen() + "/s), which become " + player.points + " points"
+    upgDisplay(11)
 }, 33)

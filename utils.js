@@ -1,15 +1,12 @@
-function Dec(x) {
-    return (new Decimal(x))
-}
+
 
 function hasUpgrade(x) {
     return (player.upgrades[x].bought)
 }
 
 function buyUpgrade(x) {
-    let res = player.upgrades[x].resource
     let cost = player.upgrades[x].cost
-    if (res.gte(cost)) {
+    if (player.points.gte(cost)) {
         player.upgrades[x].bought = true
     }
 }
@@ -20,8 +17,10 @@ function upgDisplay(x) {
         text = text + "<br>Bought!"
     }
     else {
-        text = text + "<br>Cost: " + player.upgrades[x].cost + " points<br>(Requires " + player.upgrades[x].cost.pow(player.gainLog).tetrate(player.gainSlog) + " base points)"
+        text = text + "<br>Cost: " + player.upgrades[x].cost + " points<br>(Requires " + player.gainSlog.tetrate(player.gainLog.pow(player.upgrades[x].cost)) + " base points)"
     }
-    let button = "<button>" + text + "</button>"
-    return button
+    document.getElementById("upg" + x).innerHTML = text
+    document.getElementById("x").setAttribute("onclick", "buyUpgrade(x)")
 }
+
+

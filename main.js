@@ -7,7 +7,7 @@ var player = {
         11: {
             title: "Doubler",
             description: "Multiply point gain by 2",
-            cost: Dec(0.1),
+            cost: Dec(0.001),
             shown() {
                 return true
             },
@@ -20,8 +20,8 @@ var player = {
 function getPointGen() {
     let gain = Dec(1)
     if (hasUpgrade(11)) {gain = gain.mul(2)}
-    gain = gain.mul(33/1000)
     return gain
 }
+
 
 
