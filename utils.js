@@ -20,7 +20,7 @@ function upgDisplay(x) {
         text = text + "<br>Cost: " + player.upgrades[x].cost + " points<br>(Requires " + player.gainSlog.tetrate(player.gainLog.pow(player.upgrades[x].cost)) + " base points)"
     }
     document.getElementById("upg" + x).innerHTML = text
-    document.getElementById("x").setAttribute("onclick", "buyUpgrade(x)")
+    document.getElementById("x").setAttribute("onclick", "buyUpgrade(" + x + ")")
 }
 
 
