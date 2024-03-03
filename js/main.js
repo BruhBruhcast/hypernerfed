@@ -1,6 +1,6 @@
 var player = {
     points: Dec(0),
-    basePoints: Dec(1000),
+    basePoints: Dec(0),
     gainSlog: Dec(10),
     gainLog: Dec(10),
     gainSoftcaps: {
@@ -26,6 +26,7 @@ var player = {
             cost: Dec(0.001),
             effect() {
                 let eff = Dec(2)
+                if (hasUpgrade(21)) {eff = eff.pow(upgEff(21))}
                 return eff
             },
             effDescription() {
@@ -42,6 +43,7 @@ var player = {
             cost: Dec(0.06),
             effect() {
                 let eff = Dec(3)
+                if (hasUpgrade(22)) {eff = eff.pow(upgEff(22))}
                 return eff
             },
             effDescription() {
@@ -55,9 +57,10 @@ var player = {
         13: {
             title: "Quadrupler",
             description: "Multiply point gain by 4",
-            cost: Dec(0.06),
+            cost: Dec(0.1),
             effect() {
                 let eff = Dec(4)
+                if (hasUpgrade(23)) {eff = eff.pow(upgEff(23))}
                 return eff
             },
             effDescription() {
@@ -71,9 +74,10 @@ var player = {
         14: {
             title: "Quintupler",
             description: "Multiply point gain by 5",
-            cost: Dec(0.06),
+            cost: Dec(0.145),
             effect() {
                 let eff = Dec(5)
+                if (hasUpgrade(24)) {eff = eff.pow(upgEff(24))}
                 return eff
             },
             effDescription() {
@@ -87,13 +91,104 @@ var player = {
         15: {
             title: "Sextupler",
             description: "Multiply point gain by 6",
-            cost: Dec(0.06),
+            cost: Dec(0.16),
             effect() {
                 let eff = Dec(6)
+                if (hasUpgrade(25)) {eff = eff.pow(upgEff(25))}
                 return eff
             },
             effDescription() {
                 return ("Effect: " + this.effect() + "x")
+            },
+            shown() {
+                return true
+            },
+            bought: false,
+        },
+        21: {
+            title: "Doubler Boost",
+            description: "Increase 'Doubler' effect by base point amount",
+            cost: Dec(0.17),
+            effect() {
+                let eff = player.basePoints
+                eff = eff.iteratedlog(10, 2)
+                eff = eff.add(1).max(1)
+                return eff
+            },
+            effDescription() {
+                return ("Effect: ^" + this.effect())
+            },
+            shown() {
+                return true
+            },
+            bought: false,
+        },
+        22: {
+            title: "Tripler Boost",
+            description: "Increase 'Tripler' effect by base point amount",
+            cost: Dec(0.175),
+            effect() {
+                let eff = player.basePoints
+                eff = eff.iteratedlog(10, 2)
+                eff = eff.div(Dec(3).sqrt().div(Dec(2).sqrt())).add(1).max(1)
+                return eff
+            },
+            effDescription() {
+                return ("Effect: ^" + this.effect())
+            },
+            shown() {
+                return true
+            },
+            bought: false,
+        },
+        23: {
+            title: "Quadrupler Boost",
+            description: "Increase 'Quadrupler' effect by base point amount",
+            cost: Dec(0.178),
+            effect() {
+                let eff = player.basePoints
+                eff = eff.iteratedlog(10, 2)
+                eff = eff.div(Dec(2).sqrt()).add(1).max(1)
+                return eff
+            },
+            effDescription() {
+                return ("Effect: ^" + this.effect())
+            },
+            shown() {
+                return true
+            },
+            bought: false,
+        },
+        24: {
+            title: "Quintupler Boost",
+            description: "Increase 'Quintupler' effect by base point amount",
+            cost: Dec(0.18),
+            effect() {
+                let eff = player.basePoints
+                eff = eff.iteratedlog(10, 2)
+                eff = eff.div(Dec(5).sqrt().div(Dec(2).sqrt())).add(1).max(1)
+                return eff
+            },
+            effDescription() {
+                return ("Effect: ^" + this.effect())
+            },
+            shown() {
+                return true
+            },
+            bought: false,
+        },
+        25: {
+            title: "Sextupler Boost",
+            description: "Increase 'Sextupler' effect by base point amount",
+            cost: Dec(0.182),
+            effect() {
+                let eff = player.basePoints
+                eff = eff.iteratedlog(10, 2)
+                eff = eff.div(Dec(3).sqrt()).add(1).max(1)
+                return eff
+            },
+            effDescription() {
+                return ("Effect: ^" + this.effect())
             },
             shown() {
                 return true
@@ -117,10 +212,21 @@ function getBasePointGen() {
     let gain = Dec(1)
     gain = gain.mul(getBPGainMult())
     if (gain.gt(softcapStart(1))) {
-        gain = gain.div(softcapStart(1)).pow(softcapEffect(1)).mul(softcapStart(1))
+        gain = gain.softcap(1, "pow", 1)
     }
     return gain
 }
 
-
+function admin() {
+    player.upgrades[11].bought = true
+    player.upgrades[12].bought = true
+    player.upgrades[13].bought = true
+    player.upgrades[14].bought = true
+    player.upgrades[15].bought = true
+    player.upgrades[21].bought = true
+    player.upgrades[22].bought = true
+    player.upgrades[23].bought = true
+    player.upgrades[24].bought = true
+    player.upgrades[25].bought = true
+}
 

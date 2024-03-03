@@ -14,6 +14,18 @@ function softcapDesc(x) {
     return player.gainSoftcaps[x].description()
 }
 
+Decimal.prototype.softcap = function(id, type, strength) {
+    let x = this
+    let start = softcapStart(id)
+    let effect = softcapEffect(id)
+    effect = effect.pow(strength)
+    if (x.gte(start)) {
+        if ([0, "mul"].includes(type)) x = x.sub(start).div(effect).add(start)
+        if ([1, "pow"].includes(type)) x = x.div(start).pow(effect).mul(start)
+    }
+    return x
+}
+
 function hasUpgrade(x) {
     return (player.upgrades[x].bought)
 }
