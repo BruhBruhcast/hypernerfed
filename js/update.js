@@ -7,8 +7,23 @@ function pointDisplay() {
     document.getElementById("softcaps").innerHTML = sc
 }
 
+function tabDisplay() {
+    let disp = document.getElementById("tab" + x).style.display
+    if (misc.tabs[x].shown() == true) {
+        disp = "block"
+    }
+    else {disp = "none"}
+    disp = document.getElementById(x + "subtab" + y).style.display
+    if (misc.tabs[x].subtabs[y].shown() == true) {
+        disp = "block"
+    }
+    else {disp = "none"}
+}
+
 function upgDisplay(x) {
-    let text = "<b>" + player.upgrades[x].title + "</b><br>" + player.upgrades[x].description
+    let text = ""
+    if (player.upgrades[x].title) {text = text + "<b>" + player.upgrades[x].title + "</b><br>"}
+    text = text + player.upgrades[x].description
     if (hasUpgrade(x)) {
         text = text + "<br>Bought!"
     }
@@ -46,4 +61,5 @@ var updateText = window.setInterval(function() {
     upgDisplay(23)
     upgDisplay(24)
     upgDisplay(25)
+    upgDisplay("unl1")
 }, 33)

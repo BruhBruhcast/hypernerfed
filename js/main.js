@@ -1,3 +1,27 @@
+var misc = {
+    tabs: {
+        1: {
+            description: "Main",
+            unlocked() {return true},
+            shown() {return true},
+            subtabs: {
+                1: {
+                    id: "pupgs",
+                    description: "Point Upgrades",
+                    unlocked() {return true},
+                    shown() {return true},
+                },
+                2: {
+                    id: "bpupgs",
+                    description: "Base Point Upgrades",
+                    unlocked() {return false},
+                    shown() {return true},
+                },
+            },
+        }
+    }
+}
+
 var player = {
     points: Dec(0),
     basePoints: Dec(0),
@@ -180,7 +204,7 @@ var player = {
         25: {
             title: "Sextupler Boost",
             description: "Increase 'Sextupler' effect by base point amount",
-            cost: Dec(0.182),
+            cost: Dec(0.185),
             effect() {
                 let eff = player.basePoints
                 eff = eff.iteratedlog(10, 2)
@@ -195,6 +219,17 @@ var player = {
             },
             bought: false,
         },
+        unl1: {
+            description: "Unlock new upgrades",
+            cost: Dec(0.2),
+            effDescription() {
+                return ("Coming soon!")
+            },
+            shown() {
+                return true
+            },
+            bought: false,
+        }
     },
 }
 
@@ -229,4 +264,3 @@ function admin() {
     player.upgrades[24].bought = true
     player.upgrades[25].bought = true
 }
-

@@ -2,6 +2,13 @@ function updateBP() {
     player.basePoints = player.gainSlog.tetrate(player.gainLog.pow(player.points))
 }
 
+function showTab(x, y) {
+    misc.tabs[!x].shown() = false
+    misc.tabs[x].shown() = true
+    misc.tabs[x].subtabs[!y].shown() = false
+    misc.tabs[x].subtabs[y].shown() = true
+}
+
 function softcapStart(x) {
     return player.gainSoftcaps[x].start()
 }
@@ -42,6 +49,3 @@ function buyUpgrade(x) {
 function upgEff(x) {
     return (player.upgrades[x].effect())
 }
-
-
-
