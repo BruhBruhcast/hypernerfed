@@ -19,7 +19,7 @@ var misc = {
                 },
             },
         }
-    }
+    },
 }
 
 var player = {
@@ -38,7 +38,7 @@ var player = {
                 return x
             },
             description() {
-                let text = "Above " + softcapStart(1) + ", your base point gain has been raised by " + softcapEffect(1)
+                let text = "Above " + format(softcapStart(1)) + ", your base point gain has been raised by " + softcapEffect(1)
                 return text
             },
         },
@@ -54,7 +54,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: " + this.effect() + "x")
+                return ("Effect: " + format(this.effect()) + "x")
             },
             shown() {
                 return true
@@ -71,7 +71,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: " + this.effect() + "x")
+                return ("Effect: " + format(this.effect()) + "x")
             },
             shown() {
                 return true
@@ -88,7 +88,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: " + this.effect() + "x")
+                return ("Effect: " + format(this.effect()) + "x")
             },
             shown() {
                 return true
@@ -105,7 +105,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: " + this.effect() + "x")
+                return ("Effect: " + format(this.effect()) + "x")
             },
             shown() {
                 return true
@@ -122,7 +122,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: " + this.effect() + "x")
+                return ("Effect: " + format(this.effect()) + "x")
             },
             shown() {
                 return true
@@ -140,7 +140,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: ^" + this.effect())
+                return ("Effect: ^" + format(this.effect()))
             },
             shown() {
                 return true
@@ -158,7 +158,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: ^" + this.effect())
+                return ("Effect: ^" + format(this.effect()))
             },
             shown() {
                 return true
@@ -176,7 +176,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: ^" + this.effect())
+                return ("Effect: ^" + format(this.effect()))
             },
             shown() {
                 return true
@@ -194,7 +194,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: ^" + this.effect())
+                return ("Effect: ^" + format(this.effect()))
             },
             shown() {
                 return true
@@ -212,7 +212,7 @@ var player = {
                 return eff
             },
             effDescription() {
-                return ("Effect: ^" + this.effect())
+                return ("Effect: ^" + format(this.effect()))
             },
             shown() {
                 return true

@@ -1,5 +1,5 @@
 function pointDisplay() {
-    document.getElementById("ptamt").innerHTML = player.basePoints + " base points (" + getBasePointGen() + "/s), which become " + player.points + " points"
+    document.getElementById("ptamt").innerHTML = format(player.basePoints) + " base points (" + format(getBasePointGen()) + "/s), which become " + format(player.points) + " points"
     let sc = ""
     if (getBasePointGen().gt(softcapStart(1))) {
         sc = sc + softcapDesc(1)
@@ -28,7 +28,7 @@ function upgDisplay(x) {
         text = text + "<br>Bought!"
     }
     else {
-        text = text + "<br>Cost: " + player.upgrades[x].cost + " points<br>(Requires " + player.gainSlog.tetrate(player.gainLog.pow(player.upgrades[x].cost)) + " base points)"
+        text = text + "<br>Cost: " + format(player.upgrades[x].cost) + " points<br>(Requires " + format(player.gainSlog.tetrate(player.gainLog.pow(player.upgrades[x].cost))) + " base points)"
     }
     text = text + "<br>" + player.upgrades[x].effDescription()
     document.getElementById("upg" + x).innerHTML = text
@@ -41,15 +41,45 @@ function upgDisplay(x) {
     }
 }
 
-var updateNumbers = window.setInterval(function() {
-    player.basePoints = player.basePoints.add(getBasePointGen().mul(33/1000))
+// template by HipHopHuman
+
+let time_step = 1000 / 60
+let last_time = null
+let total_time = 0
+let accumulated_lag = 0
+let number_of_updates = 0
+
+function loop(current_time) {
+  if (last_time === null) last_time = current_time
+  const delta_time = current_time - last_time
+  total_time += delta_time
+  accumulated_lag += delta_time
+  last_time = current_time
+  
+  while (accumulated_lag >= time_step) {
+    accumulated_lag -= time_step
+    update(time_step, total_time)
+    
+    if (number_of_updates++ >= 300) {
+      number_of_updates = 300
+    }
+  }
+  
+  render()
+  
+  requestAnimationFrame(loop)
+}
+requestAnimationFrame(loop)
+
+function update(delta_time, total_time) {
+    player.basePoints = player.basePoints.add(getBasePointGen().mul(delta_time/1000))
     player.points = player.basePoints.slog(player.gainSlog).log(player.gainLog).max(0)
     if (player.basePoints.lte(1)) {
         player.points = Dec(0)
     }
-}, 33)
+}
 
-var updateText = window.setInterval(function() {
+function render() {
     pointDisplay()
     upgDisplay(11)
     upgDisplay(12)
@@ -62,4 +92,5 @@ var updateText = window.setInterval(function() {
     upgDisplay(24)
     upgDisplay(25)
     upgDisplay("unl1")
-}, 33)
+}
+
